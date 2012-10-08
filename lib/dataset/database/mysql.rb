@@ -30,5 +30,9 @@ module Dataset
         "#{@storage_path}/#{datasets.collect {|c| c.__id__}.join('_')}.sql"
       end
     end
+
+    class Mysql2 < Mysql
+    end
+
   end
 end
