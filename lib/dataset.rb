@@ -73,6 +73,8 @@ require 'dataset/record/model'
 #
 module Dataset
   def self.included(test_context) # :nodoc:
+    Rails.logger.info "Dataset extending: >#{test_context.name}< #{test_context.inspect}"
+
     if test_context.name =~ /World\Z/
       require 'dataset/extensions/cucumber'
     elsif test_context.name =~ /TestCase\Z/
@@ -80,7 +82,8 @@ module Dataset
     elsif test_context.name =~ /ExampleGroup\Z/
       require 'dataset/extensions/rspec'
     else
-      raise "I don't understand your test framework"
+      #raise "I don't understand your test framework: >#{test_context.name}< #{test_context.inspect}"
+      Rails.logger.error "I don't understand your test framework: >#{test_context.name}< #{test_context.inspect}"
     end
 
     test_context.extend ContextClassMethods
